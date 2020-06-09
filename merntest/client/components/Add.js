@@ -39,11 +39,31 @@ class Add extends React.Component {
     });
   }
   componentDidMount() {
-    this.setState({
-      month: this.props.selectedMonth,
-    });
+    if (this.props.selectedMonth == "All") {
+      this.setState({
+        month: "Jan",
+      });
+    } else {
+      this.setState({
+        month: this.props.selectedMonth,
+      });
+    }
     this.setState({
       year: this.props.selectedYear,
+    });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedMonth == "All") {
+      this.setState({
+        month: "Jan",
+      });
+    } else {
+      this.setState({
+        month: this.props.selectedMonth,
+      });
+    }
+    this.setState({
+      year: nextProps.selectedYear,
     });
   }
   handleSelectChange(e) {
@@ -109,7 +129,11 @@ class Add extends React.Component {
             className="Modal"
           >
             <Link
-              to={{ pathname: "/", search: "" }}
+              to={{
+                pathname: "/",
+                search:
+                  "?month=" + this.state.month + "&year=" + this.state.year,
+              }}
               style={{ textDecoration: "none" }}
             >
               <Button bsStyle="danger" bsSize="mini" onClick={this.closeModal}>
@@ -185,7 +209,10 @@ class Add extends React.Component {
                 value={this.state.year}
                 onChange={this.handleSelectChange}
               >
-                <option value="2016" id="16">
+                <option value="2015" id="17">
+                  2015
+                </option>
+                <option value="2016" id="17">
                   2016
                 </option>
                 <option value="2017" id="17">
@@ -227,7 +254,11 @@ class Add extends React.Component {
             <div className="button-center">
               <h3>{this.state.messageFromServer}</h3>
               <Link
-                to={{ pathname: "/", search: "" }}
+                to={{
+                  pathname: "/",
+                  search:
+                    "?month=" + this.state.month + "&year=" + this.state.year,
+                }}
                 style={{ textDecoration: "none" }}
               >
                 <Button

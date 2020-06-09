@@ -33,6 +33,14 @@ class Update extends React.Component {
       year: this.props.expense.year,
     });
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      id: nextProps.expense._id,
+      description: nextProps.expense.description,
+      month: nextProps.expense.month,
+      year: nextProps.expense.year,
+    });
+  }
   openModal() {
     this.setState({
       modalIsOpen: true,
@@ -108,7 +116,11 @@ class Update extends React.Component {
             className="Modal"
           >
             <Link
-              to={{ pathname: "/", search: "" }}
+              to={{
+                pathname: "/",
+                search:
+                  "?month=" + this.state.month + "&year=" + this.state.year,
+              }}
               style={{ textDecoration: "none" }}
             >
               <Button bsStyle="danger" bsSize="mini" onClick={this.closeModal}>
@@ -229,7 +241,11 @@ class Update extends React.Component {
             <div className="button-center">
               <h3>{this.state.messageFromServer}</h3>
               <Link
-                to={{ pathname: "/", search: "" }}
+                to={{
+                  pathname: "/",
+                  search:
+                    "?month=" + this.state.month + "&year=" + this.state.year,
+                }}
                 style={{ textDecoration: "none" }}
               >
                 <Button
